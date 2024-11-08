@@ -1,0 +1,59 @@
+---
+import ShoppingCart from '../icons/Shopping-cart.astro';
+
+interface Props {
+  name: string;
+  img: string;
+  price: number;
+  onOffer: boolean;
+  discount: number;
+}
+
+const props = Astro.props;
+---
+
+<article class='flex flex-col gap-6 h-[450px] w-64'>
+  <div class='border-[1px] border-gray-200'>
+    <img draggable='false' src={props.img} alt='Product-img' class='object-contain aspect-square' />
+  </div>
+  <div class='flex flex-col items-center gap-1'>
+    <p class='text-center text-lg truncate w-5/6'>{props.name}</p>
+    {
+      !props.onOffer ? (
+        <p class='text-prim-lime-darker text-center text-xl font-extrabold'>${props.price.toPrecision(4)}</p>
+      ) : (
+        <div class='flex gap-3 justify-center'>
+          <p class='line-through-diagonal text-red-400 text-xl font-extrabold'>
+            ${props.price.toPrecision(4)}
+          </p>
+          <p class='text-prim-lime-darker text-xl font-extrabold'>
+            ${(props.price - (props.price * props.discount) / 100).toPrecision(4)}
+          </p>
+        </div>
+      )
+    }
+    <button
+      class='flex gap-3 w-3/4 mt-2 justify-center py-2 items-center text-lg font-semibold tracking-tighter rounded-sm transition ease-in bg-prim-lime hover:bg-gray-500 text-black hover:text-white duration-200'
+      >ADD TO CART <ShoppingCart fill size='20' strokeWidth='1' />
+    </button>
+  </div>
+</article>
+
+<style>
+  .line-through-diagonal {
+    position: relative;
+    display: inline-block;
+  }
+
+  .line-through-diagonal::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -5px;
+    width: 120%;
+    height: 2px;
+    background-color: currentColor;
+    transform: rotate(-10deg);
+    transform-origin: center;
+  }
+</style>

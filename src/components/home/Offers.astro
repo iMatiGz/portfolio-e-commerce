@@ -1,0 +1,24 @@
+---
+import { trendingProducts } from '../../consts/trending-products';
+import ProductCard from '../Product-Card.astro';
+---
+
+<section class='flex flex-col gap-8'>
+  <span
+    class='text-center text-lg sm:text-2xl font-bold leading-relaxed underline decoration-4 sm:decoration-8 decoration-prim-lime'
+    >TRENDING ITEMS</span
+  >
+  <section class='grid grid-cols-4 place-items-center'>
+    {
+      trendingProducts.map(prod => (
+        <ProductCard
+          name={prod.name}
+          img={prod.coverImg}
+          price={prod.price}
+          onOffer={prod.onOffer}
+          discount={prod.discount}
+        />
+      ))
+    }
+  </section>
+</section>
