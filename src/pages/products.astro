@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { products } from '../consts/products';
+import ProductCard from '../components/Product-Card.astro';
+import Filters from '../components/products/Filters.astro';
+---
+
+<Layout title='Pines – Sport Point'>
+  <main transition:animate='fade' class='flex gap-4 lg:gap-8 mt-28'>
+    <Filters products={products} />
+    <section class='flex flex-col gap-8'>
+      <span
+        class='text-center text-lg sm:text-xl font-bold leading-relaxed underline decoration-4 sm:decoration-8 decoration-prim-lime'
+        >PRODUCTS CATALOG</span
+      >
+      <section class='grid grid-cols-4 place-items-center'>
+        {
+          products.map(prod => (
+            <ProductCard
+              name={prod.name}
+              img={prod.coverImg}
+              price={prod.price}
+              onOffer={prod.onOffer}
+              discount={prod.discount}
+            />
+          ))
+        }
+      </section>
+    </section>
+  </main>
+</Layout>
